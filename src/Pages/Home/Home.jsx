@@ -3,6 +3,7 @@ import Banner from './Banner';
 import AllCrafts from './AllCrafts';
 import Categories from './Categories';
 import FruitShop from './FruitShop';
+import FAQ from './FAQ';
 
 const Home = () => {
     const crafts = useLoaderData();
@@ -21,6 +22,7 @@ const Home = () => {
             </div>
             <Categories/>
             <FruitShop/>
+            <FAQ/>
         </div>
     );
 };
