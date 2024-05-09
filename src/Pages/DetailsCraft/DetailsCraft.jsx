@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -7,7 +7,7 @@ AOS.init();
 const DetailsCraft = () => {
     const detailsCraft = useLoaderData();
     console.log(detailsCraft);
-    const { itemName, subcategory, price, image, time, description} = detailsCraft;
+    const {_id, itemName, subcategory, price, image, time, description} = detailsCraft;
     return (
         <div className="max-w-6xl mx-auto">
             <div>
@@ -17,7 +17,9 @@ const DetailsCraft = () => {
                 <div className="max-w-3xl mx-auto my-8 border p-6">
                    <div className="flex justify-between">
                    <h2 className="text-3xl font-mono">Item Name: {itemName}</h2>
+                   <Link to={`/updateCraft/${_id}`}>
                    <button className="btn btn-sm hover:rounded-full border-teal-600">Update Details</button>
+                   </Link>
                    </div>
                     <h4 className="text-xl">Category : {subcategory}</h4>
                     <div className="divider"></div>
