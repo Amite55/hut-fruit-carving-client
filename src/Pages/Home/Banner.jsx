@@ -11,7 +11,7 @@ import banner9 from "../../assets/images/banner9.jpg"
 
 const Banner = () => {
     return (
-        <>
+        <div className="max-w-6xl mx-auto my-4">
         <Swiper
                     navigation={true}
                     modules={[Navigation, Pagination, Autoplay]}
@@ -39,7 +39,7 @@ const Banner = () => {
           </SwiperSlide>
         </Swiper>
 
-      </>
+      </div>
     );
 };
 

@@ -5,6 +5,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import SingIn from "../Pages/SingIn/SingIn";
 import SignUp from "../Pages/SingUp/SignUp";
 import AddCraft from "../Pages/AddCraft/AddCraft";
+import AllArtCraft from "../Pages/AllArtCrafts/AllArtCraft";
 
 
 
@@ -18,10 +19,16 @@ const router = createBrowserRouter([
         {
           path: "/",
           element: <Home/>,
+          loader: () => fetch('http://localhost:5000/crafts')
         },
         {
           path: "/addCraft",
           element: <AddCraft></AddCraft>
+        },
+        {
+          path: "/allArtCraft",
+          element: <AllArtCraft/>,
+          loader: () => fetch('http://localhost:5000/crafts')
         },
         {
           path: "/signIn",
