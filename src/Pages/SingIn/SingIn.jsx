@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const SingIn = () => {
 
-  const {singInUser} = useContext(AuthContext);
+  const {singInUser, googleLogIn, githubLogIn} = useContext(AuthContext);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -43,11 +43,19 @@ const SingIn = () => {
           <div className="text-center">
             <h1 className="text-3xl font-bold">Please Log In</h1>
           </div>
+
           <div className="mt-6 flex justify-center gap-3">
-            <button className="btn"><FaGoogle />Google</button>
-            <button className="btn"><FaGithub />Github</button>
+            <button 
+            onClick={() => googleLogIn()}
+            className="btn"><FaGoogle />Google</button>
+            <button 
+            onClick={() => githubLogIn()}
+            className="btn"><FaGithub />Github</button>
           </div>
-          <p className="mx-auto mt-4">Or</p>
+
+         <div className="divider text-center items-center mt-4">
+         <p className=" mx-auto ">Or</p>
+         </div>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
