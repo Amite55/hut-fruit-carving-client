@@ -21,7 +21,6 @@ const SignUp = () => {
           text: "You account Registered",
           icon: "success"
         });
-        
       }
     })
     .catch(error => {
