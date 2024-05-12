@@ -9,6 +9,7 @@ import AllArtCraft from "../Pages/AllArtCrafts/AllArtCraft";
 import DetailsCraft from "../Pages/DetailsCraft/DetailsCraft";
 import UpdateCraft from "../Pages/UpdateCraft/UpdateCraft";
 import PrivateRoute from "./PrivateRoute";
+import MyArtCraft from "../Pages/MyArtCraft/MyArtCraft";
 
 
 
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           path: "/updateCraft/:id",
           element: <UpdateCraft/>,
           loader: ({params}) => fetch(`http://localhost:5000/crafts/${params.id}`)
+        },
+        {
+          path: "/myArt",
+          element: <MyArtCraft/>
         },
         {
           path: "/signIn",
