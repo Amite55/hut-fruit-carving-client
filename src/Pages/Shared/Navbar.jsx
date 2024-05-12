@@ -28,8 +28,12 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/allArtCraft">All Art & Craft</NavLink></li>
         {/* private route */}
-        <li><NavLink to="/addCraft">Add Craft</NavLink></li>
-        <li><NavLink to="/allArt">My Art & Craft</NavLink></li>
+        {
+            user ? <li><NavLink to="/addCraft">Add Craft</NavLink></li> : "" 
+        }
+       {
+        user ?  <li><NavLink to="/allArt">My Art & Craft</NavLink></li> : ""
+       }
 
     </>
 
@@ -64,7 +68,7 @@ const Navbar = () => {
                                 </div>
                             </summary>
                             <ul className="p-2 shadow menu dropdown-content z-[10] bg-base-100 rounded-box w-[150px]">
-                                <li><a>Item 1</a></li>
+                                <li>{user.email}</li>
                                 <li><Link onClick={logOut} className="btn"><IoMdLogOut />SingOut</Link></li>
                             </ul>
                         </details>

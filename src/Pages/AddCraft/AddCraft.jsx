@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import Swal from 'sweetalert2'
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const AddCraft = () => {
-
+    const {user} = useContext(AuthContext) || {};
     const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
@@ -11,7 +13,8 @@ const AddCraft = () => {
         const time = form.time.value;
         const image = form.image.value;
         const description = form.description.value;
-        const newCraft = {itemName, subcategory, price, time, image, description}
+        const email = user.email;
+        const newCraft = {itemName, subcategory, price, time, image, description, email}
         console.log(newCraft)
 
         // send to the server

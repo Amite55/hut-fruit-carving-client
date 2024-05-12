@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGithub, FaGoogle } from "react-icons/fa6";
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
@@ -6,6 +6,10 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 const SingIn = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const form = location?.state || '/';
 
   const {singInUser, googleLogIn, githubLogIn} = useContext(AuthContext);
 
@@ -16,6 +20,7 @@ const SingIn = () => {
     singInUser(email, password)
     .then(result => {
       console.log(result.user);
+      navigate(form);
       if(result.user){
         Swal.fire({
           title: "Welcome",
@@ -35,6 +40,14 @@ const SingIn = () => {
       }
     })
   }
+  
+  const handleSocialLogin = (socialProvider) => {
+    socialProvider()
+    .then(result => {
+      console.log(result.user);
+      navigate(form)
+    })
+  }
 
   return (
     <div>
@@ -46,10 +59,10 @@ const SingIn = () => {
 
           <div className="mt-6 flex justify-center gap-3">
             <button 
-            onClick={() => googleLogIn()}
+            onClick={() => handleSocialLogin(googleLogIn)}
             className="btn"><FaGoogle />Google</button>
             <button 
-            onClick={() => githubLogIn()}
+            onClick={() => handleSocialLogin(githubLogIn)}
             className="btn"><FaGithub />Github</button>
           </div>
 

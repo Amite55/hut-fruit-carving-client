@@ -42,7 +42,7 @@ const UpdateCraft = () => {
 
     return (
         <div className="bg-[#b4b4b2] p-24">
-        <h1 className="mx-auto text-4xl text-black font-bold font-mono">Add New Craft</h1>
+        <h1 className="mx-auto text-4xl text-black font-bold font-mono">Update a Craft</h1>
         <form onSubmit={handleUpdateCraft}>
 
 

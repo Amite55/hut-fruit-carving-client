@@ -1,11 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+ const form = location?.state || '/';
 
   const { createUser } = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -15,6 +19,7 @@ const SignUp = () => {
     createUser(email, password)
     .then(result => {
       console.log(result);
+      navigate(form);
       if(result.user){
         Swal.fire({
           title: "Welcome",
