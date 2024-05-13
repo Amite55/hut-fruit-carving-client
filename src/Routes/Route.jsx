@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         {
           path: "/",
           element: <Home/>,
-          loader: () => fetch('http://localhost:5000/crafts')
+          loader: () => fetch('https://hut-fruit-carving-server-side.vercel.app/crafts')
         },
         {
           path: "/addCraft",
@@ -32,19 +32,19 @@ const router = createBrowserRouter([
         {
           path: "/allArtCraft",
           element: <AllArtCraft/>,
-          loader: () => fetch('http://localhost:5000/crafts')
+          loader: () => fetch('https://hut-fruit-carving-server-side.vercel.app/crafts')
         },
         {
           path: "/detailsCraft/:id",
           element: <PrivateRoute>
             <DetailsCraft/>
           </PrivateRoute>,
-          loader: ({params}) => fetch(`http://localhost:5000/crafts/${params.id}`)
+          loader: ({params}) => fetch(`https://hut-fruit-carving-server-side.vercel.app/crafts/${params.id}`)
         },
         {
           path: "/updateCraft/:id",
           element: <UpdateCraft/>,
-          loader: ({params}) => fetch(`http://localhost:5000/crafts/${params.id}`)
+          loader: ({params}) => fetch(`https://hut-fruit-carving-server-side.vercel.app/crafts/${params.id}`)
         },
         {
           path: "/myArt",

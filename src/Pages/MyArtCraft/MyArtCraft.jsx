@@ -8,7 +8,7 @@ const MyArtCraft = () => {
     console.log(user);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myCrafts/${user?.email}`)
+        fetch(`https://hut-fruit-carving-server-side.vercel.app/myCrafts/${user?.email}`)
         .then(res => res.json())
         .then(data => {
             console.log(data);

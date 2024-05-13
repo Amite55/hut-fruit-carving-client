@@ -18,7 +18,7 @@ const AddCraft = () => {
         console.log(newCraft)
 
         // send to the server
-        fetch('http://localhost:5000/crafts', {
+        fetch('https://hut-fruit-carving-server-side.vercel.app/crafts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -19,7 +19,7 @@ const UpdateCraft = () => {
         const updateCraft = {itemName, subcategory, price, time, image, description}
         console.log(updateCraft);
 
-        fetch(`http://localhost:5000/crafts/${_id}`, {
+        fetch(`https://hut-fruit-carving-server-side.vercel.app/crafts/${_id}`, {
             method: 'PUT', 
             headers: {
                 'content-type': 'application/json'

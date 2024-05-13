@@ -10,7 +10,7 @@ const PrivateRoute = ({children}) => {
     console.log(loading);
 
     if(loading){
-      return <span className="loading loading-spinner loading-lg"></span>
+      return <span className="loading loading-spinner loading-lg mx-auto items-center my-10"></span>
     }
 
     if(!user){
