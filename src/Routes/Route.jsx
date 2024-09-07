@@ -10,8 +10,7 @@ import DetailsCraft from "../Pages/DetailsCraft/DetailsCraft";
 import UpdateCraft from "../Pages/UpdateCraft/UpdateCraft";
 import PrivateRoute from "./PrivateRoute";
 import MyArtCraft from "../Pages/MyArtCraft/MyArtCraft";
-
-
+import AllArtCraftsPage from "../Pages/AllArtCraftsPage/AllArtCraftsPage";
 
 
 const router = createBrowserRouter([
@@ -22,8 +21,7 @@ const router = createBrowserRouter([
       children: [
         {
           path: "/",
-          element: <Home/>,
-          loader: () => fetch('https://hut-fruit-carving-server-side.vercel.app/crafts')
+          element: <Home/>
         },
         {
           path: "/addCraft",
@@ -31,20 +29,21 @@ const router = createBrowserRouter([
         },
         {
           path: "/allArtCraft",
-          element: <AllArtCraft/>,
-          loader: () => fetch('https://hut-fruit-carving-server-side.vercel.app/crafts')
+          element: <AllArtCraft/>
+        },
+        {
+          path: '/all-art-crafts/:subcategoryName',
+          element: <AllArtCraftsPage/>
         },
         {
           path: "/detailsCraft/:id",
           element: <PrivateRoute>
-            <DetailsCraft/>
-          </PrivateRoute>,
-          loader: ({params}) => fetch(`https://hut-fruit-carving-server-side.vercel.app/crafts/${params.id}`)
+                     <DetailsCraft/>
+                   </PrivateRoute>,
         },
         {
           path: "/updateCraft/:id",
           element: <UpdateCraft/>,
-          loader: ({params}) => fetch(`https://hut-fruit-carving-server-side.vercel.app/crafts/${params.id}`)
         },
         {
           path: "/myArt",

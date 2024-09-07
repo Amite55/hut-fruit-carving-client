@@ -48,7 +48,7 @@ const Navbar = () => {
                         {navList}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">Hut Fruit Carving</a>
+                <Link to='/' className="btn btn-ghost text-xl">Hut Fruit Carving</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -59,16 +59,17 @@ const Navbar = () => {
 
                 {
                     user?.email ? <>
+                      <p>{user?.displayName}</p>
                         <details className="dropdown">
                             <summary className="m-1">
                                 <div className="avatar">
                                     <div className="w-14 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                        <img src={user?.photoURL} />
                                     </div>
                                 </div>
                             </summary>
-                            <ul className="p-2 shadow menu dropdown-content z-[10] bg-base-100 rounded-box w-[150px]">
-                                <li>{user.email}</li>
+                            <ul className="p-2 space-y-6 shadow menu dropdown-content z-[10] bg-base-100 rounded-box w-[150px]">
+                                <li className="font-bold mx-auto">{user.email}</li>
                                 <li><Link onClick={logOut} className="btn"><IoMdLogOut />SingOut</Link></li>
                             </ul>
                         </details>

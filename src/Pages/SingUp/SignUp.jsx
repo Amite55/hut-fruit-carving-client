@@ -1,44 +1,35 @@
-import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-
+import useAuth from "../../customHooks/useAuth";
 
 const SignUp = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
- const form = location?.state || '/';
+ const from = location?.state || '/';
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useAuth()
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
-    const {email, password} = data;
-    createUser(email, password)
-    .then(result => {
-      console.log(result);
-      navigate(form);
-      if(result.user){
-        Swal.fire({
-          title: "Welcome",
-          text: "You account Registered",
-          icon: "success"
-        });
-      }
-    })
-    .catch(error => {
-      console.error(error.message)
-      if(error.message){
+  const onSubmit = async (data) => {
+    const {email, password, name, image} = data;
+    console.log(data);
+    try{
+    await createUser(email, password);
+    await updateUserProfile(name, image)
+     Swal.fire({
+      title: "Welcome",
+      text: "You account Registered",
+      icon: "success"
+    });
+    navigate(from)
+   }catch(err) {
         Swal.fire({
           title: "oh😫!",
           text: "Please try again",
           icon: "error"
         })
       }
-
-    })
   }
 
   return (
@@ -58,7 +49,7 @@ const SignUp = () => {
             <input type="text"
               placeholder="Full Name"
               className="input input-bordered"
-              {...register("fullName", { required: true })}
+              {...register("name", { required: true })}
             />
             {
               errors.fullName && <span className="text-red-500">This field is required</span>

@@ -1,42 +1,55 @@
-import { useContext } from 'react';
-import Swal from 'sweetalert2'
-import { AuthContext } from '../../AuthProvider/AuthProvider';
+
+import { useMutation } from '@tanstack/react-query';
+import useAuth from '../../customHooks/useAuth';
+import useAxios from '../../customHooks/useAxios';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const AddCraft = () => {
-    const {user} = useContext(AuthContext) || {};
-    const handleSubmit = e => {
+    const { user } = useAuth();
+    const customAxios = useAxios();
+    const navigate = useNavigate();
+
+    const { mutateAsync, reset } = useMutation({
+        mutationFn: async (newCraft) => {
+            const { data } = await customAxios.post(`/crafts`, newCraft);
+            console.log(data);
+            return data;
+        },
+        onSuccess: () => {
+            Swal.fire({
+                title: 'success!',
+                text: 'Added a New craft Item',
+                icon: 'successful',
+                confirmButtonText: 'ok'
+            })
+            reset()
+            navigate('/myArt')
+        }
+    })
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
-        const itemName = form.item.value;
+        const itemName = form.name.value;
         const subcategory = form.subcategory.value;
         const price = form.price.value;
         const time = form.time.value;
+        const rating = form.rating.value;
+        const stockStatus = form.stockStatus.value;
+        const customization = form.customization.value;
         const image = form.image.value;
         const description = form.description.value;
-        const email = user.email;
-        const newCraft = {itemName, subcategory, price, time, image, description, email}
-        console.log(newCraft)
+        const email = user?.email;
+        const userName = user?.displayName;
 
-        // send to the server
-        fetch('https://hut-fruit-carving-server-side.vercel.app/crafts', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newCraft)
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.insertedId){
-                Swal.fire({
-                    title: 'success!',
-                    text: 'Added a New craft Item',
-                    icon: 'successful',
-                    confirmButtonText: 'ok'
-                  })
-            }
-        })
+        const newCraft = { itemName, subcategory, price, time, image, description, rating, stockStatus, customization, email, userName }
+        console.table(newCraft);
+        try {
+         await mutateAsync(newCraft);
+        } catch (err) {
+         console.log(err);
+        }
     }
 
     return (
@@ -44,55 +57,99 @@ const AddCraft = () => {
             <h1 className="mx-auto text-4xl text-black font-bold font-mono">Add New Craft</h1>
             <form onSubmit={handleSubmit}>
 
-
-                <div className="md:flex">
-                    <div className="form-control md:w-1/2">
+                {/* craft name and title */}
+                <div className="">
+                    <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text text-black font-bold">Name</span>
                         </label>
-                        <input name="item" type="text" placeholder="Craft Item Name" className="input input-bordered w-full" />
+                        <input name="name" type="text" placeholder="Craft Item Name" className="input input-bordered w-full" required />
+                    </div>
+                </div>
+
+
+                {/* Rating and subcategory name */}
+                <div className="md:flex">
+                    <div className="form-control md:w-1/2">
+                        <label className="label">
+                            <span className="label-text text-black font-bold">Rating</span>
+                        </label>
+                        <input type="number" name="rating" min="0" max="5" placeholder="Enter rating (0 to 5)" required className="input input-bordered w-full" />
                     </div>
 
                     <div className="form-control ml-3 md:w-1/2">
                         <label className="label">
                             <span className="label-text text-black font-bold">subcategory Name</span>
                         </label>
-                        <input name="subcategory" type="text" placeholder="Subcategory Name" className="input input-bordered w-full" />
+                        <select name="subcategory" className="h-12 input-bordered rounded-lg w-full px-2" required>
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                            <option value="cartoon-drawing">Cartoon Drawing</option>
+                            <option value="landscape-painting">Landscape Painting</option>
+                            <option value="portrait-drawing">Portrait Drawing</option>
+                            <option value="water-color-painting">Water color Painting</option>
+                            <option value="oil-painting">Oil Painting</option>
+                            <option value="charcoal-sketching">Charcoal Sketching:</option>
+                        </select>
                     </div>
                 </div>
-
+                {/* price and processing time */}
                 <div className="md:flex">
                     <div className="form-control md:w-1/2">
                         <label className="label">
                             <span className="label-text text-black font-bold">Price</span>
                         </label>
-                        <input name="price" type="text" placeholder="Price" className="input input-bordered w-full" />
+                        <input name="price" type="text" placeholder="Price" className="input input-bordered w-full" required />
                     </div>
 
                     <div className="form-control ml-3 md:w-1/2">
                         <label className="label">
-                            <span className="label-text text-black font-bold">Time</span>
+                            <span className="label-text text-black font-bold">Processing Time (days):</span>
                         </label>
-                        <input name="time" type="time" className="input input-bordered w-full" />
+                        <input type="number" name="time" placeholder="Enter processing time" required className="input input-bordered w-full" />
                     </div>
                 </div>
 
+                {/* stock status and  Customization Availity*/}
+                <div className="md:flex">
+                    <div className="form-control md:w-1/2">
+                        <label className="label">
+                            <span className="label-text text-black font-bold">Stock Status:</span>
+                        </label>
+                        <select name="stockStatus" className="h-12 input-bordered rounded-lg w-full px-2" required>
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                            <option value="in-stock">In Stock</option>
+                            <option value="made-to-order">Made to Order</option>
+                        </select>
+                    </div>
+
+                    <div className="form-control ml-3 md:w-1/2">
+                        <label className="label">
+                            <span className="label-text text-black font-bold">Customization Available:</span>
+                        </label>
+                        <select name="customization" className=" h-12 input-bordered rounded-lg w-full px-2" required>
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </div>
+                {/* photo url */}
                 <div className="">
                     <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text text-black font-bold">Photo URL</span>
                         </label>
-                        <input name="image" type="url" placeholder="Photo URL" className="input input-bordered w-full" />
+                        <input name="image" type="url" placeholder="Photo URL" className="input input-bordered w-full" required />
                     </div>
                 </div>
-
+                {/* description */}
                 <div className="">
                     <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text text-black font-bold">Short Description</span>
                         </label>
-                        
-                        <input name="description" type="text" placeholder="Short Description" className="input input-bordered w-full" />
+
+                        <input name="description" type="text" placeholder="Short Description" className="input input-bordered w-full" required />
                     </div>
                 </div>
 
