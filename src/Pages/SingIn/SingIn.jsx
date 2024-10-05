@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion"
 
 const SingIn = () => {
 
@@ -50,7 +51,10 @@ const SingIn = () => {
   }
 
   return (
-    <div>
+    <motion.div 
+    initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 2 } }}
+    >
       <div className="hero min-h-screen bg-base-200">
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="text-center">
@@ -112,7 +116,7 @@ const SingIn = () => {
         </div>
 
       </div>
-    </div>
+    </motion.div >
   );
 };
 

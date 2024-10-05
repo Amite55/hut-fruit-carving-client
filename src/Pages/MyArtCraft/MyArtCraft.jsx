@@ -6,6 +6,8 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import MyArtTableRow from "./MyArtTableRow";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion"
+
 
 const MyArtCraft = () => {
   const { user } = useAuth();
@@ -74,7 +76,9 @@ const MyArtCraft = () => {
 
   if (isLoading) return <LoadingSpinner />
   return (
-    <>
+    <motion.div 
+    initial={{ opacity: 0 }}
+  animate={{ opacity: 1, transition: { duration: 1 } }}>
       <h2 className="text-3xl mx-auto text-center divider font-mono my-2">My Added Art And Crafts</h2>
       <div className='container mx-auto px-4 sm:px-8'>
 
@@ -160,7 +164,7 @@ const MyArtCraft = () => {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 

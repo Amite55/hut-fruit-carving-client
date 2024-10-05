@@ -4,6 +4,7 @@ import 'aos/dist/aos.css';
 import useAuth from "../../customHooks/useAuth";
 import useAxios from "../../customHooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion"
 
 AOS.init();
 
@@ -23,7 +24,10 @@ const DetailsCraft = () => {
     })
 
     return (
-        <div className="max-w-6xl mx-auto">
+        <motion.div 
+        initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1.5 } }}
+        className="max-w-6xl mx-auto">
             <div>
                 <div data-aos="fade-left" data-aos-duration="1000" className="md:max-w-3xl mx-auto">
                     <img className="text-center" src={detailsCraft?.image} alt="" />
@@ -55,7 +59,7 @@ const DetailsCraft = () => {
 
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

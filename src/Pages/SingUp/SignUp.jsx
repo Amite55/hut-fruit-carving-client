@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAuth from "../../customHooks/useAuth";
+import { motion } from "framer-motion"
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ const SignUp = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <motion.div 
+    initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 2 } }} 
+    className="hero min-h-screen bg-base-200">
       <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <div className="text-center">
           <h1 className="text-3xl font-bold">Create Account</h1>
@@ -112,7 +116,7 @@ const SignUp = () => {
         </form>
         <p className="mx-auto">You Have An account Please <Link to="/signIn" className="hover:underline text-blue-500">SignIn</Link></p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
